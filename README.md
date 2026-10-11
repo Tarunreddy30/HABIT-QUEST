@@ -11,9 +11,3 @@ Plain JavaScript (vanilla, no React/Vue, no npm packages)
 Two Google Fonts loaded via CDN link in index.html (Orbitron + Rubik + JetBrains Mono) — no install needed, just needs internet access when the page loads
 Storage:
 A plain data.json file — no SQLite, no database server, no ORM.
-
-What you actually need to type in the terminal:
-pip install flask
-That's the only package required. Then just run:
-python app.py
-No requirements.txt was generated — want me to add one so pip install -r requirements.txt works too?
