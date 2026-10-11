@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HabitQuest — Level Up Your Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rubik:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="bg-fx" aria-hidden="true"></div>
+
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-mark">⚔</span>
+      <span class="brand-text">HabitQuest</span>
+    </div>
+    <nav class="nav">
+      <button class="nav-item active" data-page="dashboard"><span class="nav-icon">🏠</span><span>Dashboard</span></button>
+      <button class="nav-item" data-page="quests"><span class="nav-icon">⚔️</span><span>Daily Quests</span></button>
+      <button class="nav-item" data-page="calendar"><span class="nav-icon">📅</span><span>Calendar</span></button>
+      <button class="nav-item" data-page="achievements"><span class="nav-icon">🏆</span><span>Achievements</span></button>
+      <button class="nav-item" data-page="badges"><span class="nav-icon">🎖️</span><span>Badges</span></button>
+      <button class="nav-item" data-page="rewards"><span class="nav-icon">🪙</span><span>Rewards</span></button>
+      <button class="nav-item" data-page="stats"><span class="nav-icon">📊</span><span>Statistics</span></button>
+      <button class="nav-item" data-page="profile"><span class="nav-icon">👤</span><span>Profile</span></button>
+      <button class="nav-item" data-page="settings"><span class="nav-icon">⚙️</span><span>Settings</span></button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="mini-stat"><span>🔥</span><b id="side-streak">0</b></div>
+      <div class="mini-stat"><span>🪙</span><b id="side-coins">0</b></div>
+    </div>
+  </aside>
+
+  <div class="scrim" id="scrim"></div>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <header class="topbar">
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+      <h1 class="page-title" id="page-title">Dashboard</h1>
+      <div class="topbar-stats">
+        <div class="pill"><span class="pill-icon">🔥</span><span id="top-streak">0</span></div>
+        <div class="pill"><span class="pill-icon">🪙</span><span id="top-coins">0</span></div>
+        <div class="pill pill-level"><span class="pill-icon">⚡</span>Lv <span id="top-level">1</span></div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- ================= DASHBOARD ================= -->
+      <section class="page active" id="page-dashboard">
+
+        <div class="hero-card glass">
+          <div class="hero-left">
+            <div class="hero-eyebrow">HabitQuest</div>
+            <div class="hero-level-row">
+              <span class="hero-level" id="hero-level">Level 1</span>
+              <span class="hero-title" id="hero-title">— Beginner</span>
+            </div>
+            <div class="xp-bar-wrap">
+              <div class="xp-bar-track">
+                <div class="xp-bar-fill" id="xp-bar-fill"></div>
+              </div>
+              <div class="xp-bar-label"><span id="xp-current">0</span> / <span id="xp-target">100</span> XP</div>
+            </div>
+            <div class="hero-stats">
+              <div class="hero-stat"><span class="hs-icon">🔥</span><span class="hs-val" id="hs-streak">0</span><span class="hs-label">Day Streak</span></div>
+              <div class="hero-stat"><span class="hs-icon">🪙</span><span class="hs-val" id="hs-coins">0</span><span class="hs-label">Coins</span></div>
+              <div class="hero-stat"><span class="hs-icon">🏆</span><span class="hs-val" id="hs-badges">0</span><span class="hs-label">Badges</span></div>
+              <div class="hero-stat"><span class="hs-icon">⚡</span><span class="hs-val" id="hs-xp">0</span><span class="hs-label">Total XP</span></div>
+            </div>
+          </div>
+          <div class="hero-right">
+            <svg class="level-ring" viewBox="0 0 200 200">
+              <circle class="ring-track" cx="100" cy="100" r="86"></circle>
+              <circle class="ring-fill" id="ring-fill" cx="100" cy="100" r="86"></circle>
+            </svg>
+            <div class="ring-center">
+              <div class="ring-level" id="ring-level">1</div>
+              <div class="ring-label">LEVEL</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div class="card glass progress-card">
+            <div class="card-head">
+              <h3>Today's Progress</h3>
+            </div>
+            <div class="progress-big-row">
+              <div class="progress-count"><span id="prog-completed">0</span> / <span id="prog-total">0</span> Missions</div>
+              <div class="progress-pct" id="prog-pct">0%</div>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+            <div class="progress-msg" id="prog-msg">Let's get started!</div>
+          </div>
+
+          <div class="card glass challenge-card">
+            <div class="card-head"><h3>⚡ Daily Challenge</h3></div>
+            <p class="challenge-text" id="daily-challenge-text">Loading…</p>
+            <div class="challenge-reward">
+              <span class="chip chip-xp">+<span id="dc-xp">0</span> XP</span>
+              <span class="chip chip-coin">+<span id="dc-coins">0</span> 🪙</span>
+              <span class="chip chip-status" id="dc-status">In Progress</span>
+            </div>
+          </div>
+
+          <div class="card glass challenge-card weekly-card">
+            <div class="card-head"><h3>🗓️ Weekly Challenge</h3></div>
+            <p class="challenge-text">Complete <b id="wc-target">25</b> missions this week.</p>
+            <div class="progress-track"><div class="progress-fill fill-purple" id="wc-fill"></div></div>
+            <div class="progress-msg"><span id="wc-current">0</span> / <span id="wc-target2">25</span> — Reward: 🏆 Weekly Warrior + 500 XP</div>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <h2>⚔️ Today's Missions</h2>
+          <button class="btn btn-ghost" data-nav="quests">View all →</button>
+        </div>
+        <div class="quest-grid" id="dashboard-quest-preview"></div>
+
+      </section>
+
+      <!-- ================= DAILY QUESTS ================= -->
+      <section class="page" id="page-quests">
+        <div class="section-head">
+          <h2>⚔️ Daily Quests</h2>
+          <button class="btn btn-primary" id="btn-open-create-task">+ Create Quest</button>
+        </div>
+        <div class="quest-grid" id="quest-full-list"></div>
+        <div class="empty-state" id="quests-empty" hidden>
+          <div class="empty-icon">🗺️</div>
+          <h3>No quests yet!</h3>
+          <p>Create your first mission and begin your journey.</p>
+          <button class="btn btn-primary" id="btn-empty-create">+ Create Quest</button>
+        </div>
+      </section>
+
+      <!-- ================= CALENDAR ================= -->
+      <section class="page" id="page-calendar">
+        <div class="section-head">
+          <h2>📅 Habit Calendar</h2>
+          <div class="cal-nav">
+            <button class="btn btn-ghost" id="cal-prev">‹</button>
+            <span id="cal-month-label">—</span>
+            <button class="btn btn-ghost" id="cal-next">›</button>
+          </div>
+        </div>
+        <div class="card glass">
+          <div class="cal-legend">
+            <span><i class="dot dot-full"></i> Full</span>
+            <span><i class="dot dot-partial"></i> Partial</span>
+            <span><i class="dot dot-missed"></i> Missed</span>
+            <span><i class="dot dot-future"></i> Upcoming</span>
+          </div>
+          <div class="cal-weekdays">
+            <span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+        <div class="card glass" id="cal-day-detail" hidden>
+          <h3 id="cal-day-title">—</h3>
+          <ul id="cal-day-list" class="simple-list"></ul>
+        </div>
+      </section>
+
+      <!-- ================= ACHIEVEMENTS ================= -->
+      <section class="page" id="page-achievements">
+        <div class="section-head"><h2>🏆 Achievements</h2></div>
+        <div class="achv-grid" id="achv-grid"></div>
+      </section>
+
+      <!-- ================= BADGES ================= -->
+      <section class="page" id="page-badges">
+        <div class="section-head"><h2>🎖️ Badges</h2></div>
+        <div class="badge-grid" id="badge-grid"></div>
+      </section>
+
+      <!-- ================= REWARDS ================= -->
+      <section class="page" id="page-rewards">
+        <div class="section-head">
+          <h2>🪙 Reward Shop</h2>
+          <div class="pill pill-level"><span class="pill-icon">🪙</span><span id="shop-coins">0</span></div>
+        </div>
+        <div class="shop-grid" id="shop-grid"></div>
+        <div class="section-head" style="margin-top:2.5rem;"><h2>🎁 Redeemed</h2></div>
+        <ul class="simple-list" id="redeemed-list"></ul>
+      </section>
+
+      <!-- ================= STATISTICS ================= -->
+      <section class="page" id="page-stats">
+        <div class="section-head"><h2>📊 Statistics</h2></div>
+        <div class="stats-grid" id="stats-grid"></div>
+      </section>
+
+      <!-- ================= PROFILE ================= -->
+      <section class="page" id="page-profile">
+        <div class="card glass profile-card">
+          <div class="profile-avatar">⚔️</div>
+          <div class="profile-name" id="profile-username">Player</div>
+          <div class="profile-title" id="profile-title">Beginner</div>
+          <div class="profile-stats-grid" id="profile-stats-grid"></div>
+        </div>
+      </section>
+
+      <!-- ================= SETTINGS ================= -->
+      <section class="page" id="page-settings">
+        <div class="section-head"><h2>⚙️ Settings</h2></div>
+        <div class="card glass">
+          <p class="muted">HabitQuest stores everything locally in <code>data.json</code> — no account or internet connection required.</p>
+          <p class="muted">Complete your daily missions consistently to build streaks, earn badges, and level up. Good luck on your journey, adventurer!</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ============ CREATE TASK MODAL ============ -->
+<div class="modal-backdrop" id="modal-backdrop" hidden>
+  <div class="modal glass">
+    <h3>Create New Quest</h3>
+    <label>Task name
+      <input type="text" id="ct-name" placeholder="e.g. Practice guitar" maxlength="60">
+    </label>
+    <label>Icon (emoji)
+      <input type="text" id="ct-icon" placeholder="⭐" maxlength="4">
+    </label>
+    <label>Category
+      <select id="ct-category"></select>
+    </label>
+    <label>Difficulty
+      <select id="ct-difficulty"></select>
+    </label>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="ct-cancel">Cancel</button>
+      <button class="btn btn-primary" id="ct-submit">Create Quest</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ LEVEL UP OVERLAY ============ -->
+<div class="levelup-overlay" id="levelup-overlay" hidden>
+  <div class="levelup-card">
+    <div class="levelup-burst"></div>
+    <div class="levelup-label">LEVEL UP!</div>
+    <div class="levelup-level" id="levelup-level">Level 8</div>
+    <div class="levelup-title" id="levelup-title">Warrior</div>
+    <button class="btn btn-primary" id="levelup-close">Continue</button>
+  </div>
+</div>
+
+<!-- ============ TOASTS ============ -->
+<div class="toast-stack" id="toast-stack"></div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
